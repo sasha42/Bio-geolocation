@@ -7,7 +7,7 @@ import re
 import requests
 import time
 import json
-import sys, getopt
+import sys
 
 # set the GenBank url
 url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id={}&rettype=gb"
@@ -16,8 +16,8 @@ def load_file():
     """ load the file """
     try:
         filename = sys.argv[1]
-    except getopt.GetoptError:
-        print('bio-geolocation.py <inputfile>')
+    except:
+        print('missing input file!')
         sys.exit(2)
     file = open(filename,"r")
     fas = file.read()
