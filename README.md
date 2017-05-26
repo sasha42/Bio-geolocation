@@ -1,13 +1,15 @@
 # Bio location
 Looks up the location of sequences in genbank and adds it to a FASTA file. In this repo there is the `bio-geolocation.py` script, a demo jupyter notebook as well as unprocessed and processed files as an example. To use the script itself you'll need to invoke it with python3 and your `.fas` input file:
 
-  $ python3 bio-geolocation.py suillus.fas
-  
-  Bio geolocation
-  extracting data from 104 sequences
-  getting geolocation data (this takes a while)
-  saving into processed.fas
-  done!
+```
+$ python3 bio-geolocation.py suillus.fas
+
+Bio geolocation
+extracting data from 104 sequences
+getting geolocation data (this takes a while)
+saving into processed.fas
+done!
+```
 
 You will then have a nice `processed.fas` file.
 
