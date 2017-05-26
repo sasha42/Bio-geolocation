@@ -7,14 +7,19 @@ import re
 import requests
 import time
 import json
-
+import sys, getopt
 
 # set the GenBank url
 url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id={}&rettype=gb"
 
 def load_file():
     """ load the file """
-    file = open("suillus.fas","r")
+    try:
+        filename = sys.argv[1]
+    except getopt.GetoptError:
+        print('bio-geolocation.py <inputfile>')
+        sys.exit(2)
+    file = open(filename,"r")
     fas = file.read()
 
     # separate the fas file into a list of sequences
@@ -134,7 +139,7 @@ def process_to_fas(sequences, sequences_with_geolcation):
     return(sequences_formatted_as_fas)
 
 def save_to_fas(sequences_formatted_as_fas):
-    output = open('suillus_processed.fas', 'w')
+    output = open('processed.fas', 'w')
 
     for seq in sequences_formatted_as_fas:
         try:
@@ -148,12 +153,12 @@ def save_to_fas(sequences_formatted_as_fas):
 
 if __name__ == '__main__':
     print("\033[1m" + "\nBio geolocation" + "\033[0m")
-    print("---------------")
     sequences = load_file()
     print("extracting data from {} sequences".format(len(sequences)))
     sequences_processed = extract_name_id(sequences)
     print("getting geolocation data (this takes a while)")
     sequences_with_geolcation = get_geolocation(sequences_processed)
-    print("saving into a FASTA file")
+    print("saving into processed.fas")
     sequences_formatted_as_fas = process_to_fas(sequences, sequences_with_geolcation)
     save_to_fas(sequences_formatted_as_fas)
+    print("done!\n")
